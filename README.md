@@ -7,8 +7,8 @@
 
 
 ## 📊 Daily Developer Log
-🗓 **Last Updated:** <!--DATE-->  
-🔥 **Consistency Streak:** <!--DAY_COUNT--> days  
+🗓 Last Updated: initializing...
+🔥 Consistency Streak: initializing... days
 
 
 💡 *"Small progress every day beats big progress someday."*
