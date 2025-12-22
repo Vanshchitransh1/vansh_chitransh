@@ -1,0 +1,35 @@
+name: Auto Update README Daily
+
+on:
+  schedule:
+    - cron: "30 0 * * *"   # 6:00 AM IST
+  workflow_dispatch:
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Update README content
+        run: |
+          DATE=$(date +"%d %B %Y")
+          
+          if [ ! -f streak.txt ]; then
+            echo "1" > streak.txt
+          fi
+
+          STREAK=$(cat streak.txt)
+          NEXT_STREAK=$((STREAK+1))
+          echo $NEXT_STREAK > streak.txt
+
+          sed -i "s|🗓 Last Updated:.*|🗓 Last Updated: $DATE|g" README.md || true
+          sed -i "s|🔥 Consistency Streak:.*|🔥 Consistency Streak: $STREAK days|g" README.md || true
+
+      - name: Commit & Push
+        run: |
+          git config --global user.name "vanshchitransh1"
+          git config --global user.email "vanshchitransh1@users.noreply.github.com"
+          git add .
+          git commit -m "🔄 Daily auto update README" || echo "No changes"
+          git push
